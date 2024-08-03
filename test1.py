@@ -97,7 +97,7 @@ for line in lines:
                 response = requests.get(url, headers=headers, data=payload)
 
                 logger.info("签到状态: %s", response.json())
-                msg = msg + "\n" + str(a) + "   " + date
+                msg = msg + "\n\n" + str(a) + "   " + date
                 break  # 成功退出重试循环
 
         except requests.exceptions.RequestException as e:
@@ -117,7 +117,7 @@ with open("1zh.txt", 'w', encoding='utf-8') as file:
 
 logger.info("处理完成，失败的账号已被删除。")
 
-msg = msg + "\n" + "共删除了 {} 个账号密码对".format(deleted_count)
+msg = msg + "\n\n" + "共删除了 {} 个账号密码对".format(deleted_count)
 # print(msg)
 
 
