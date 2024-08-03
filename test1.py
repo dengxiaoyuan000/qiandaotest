@@ -1,7 +1,7 @@
 import logging
 import requests
 import js2py
-
+import os
 date = 123
 msg = ""
 a = 0
@@ -122,18 +122,29 @@ msg = msg + "\n" + "共删除了 {} 个账号密码对".format(deleted_count)
 
 
 def post_weichat_2():
-    url = 'http://www.pushplus.plus/send'
+    token = os.getenv('ANPUSH_TOKEN')
+    if not token:
+        logger.error("ANPUSH_TOKEN is not set.")
+        return
+
+    url = "https://api.anpush.com/push/"+token
+    # 从环境变量中获取token
+    
+   
     # post发送的字典参数
     data_dict = {
-        'token': "6e2a636fa73f4437ab92f48417111e46",  # 一对多、一对一的token值
-        'title': 'Github Action签到',  # 微信接收到显示的标题
-        'template': 'txt',  # 指定微信接收到显示的类型
-        'content': msg
+        'title': '签到000',
+        'content': msg,  # 确保变量在此处之前已经被定义
+        "channel": "56466"
     }
-    r = requests.post(url, data=data_dict)  # 发起请求，可以不设置请求头
+    headers = {
+    "Content-Type": "application/x-www-form-urlencoded"
+    }
+    r = requests.post(url, headers=headers, data=data_dict)  # 发起请求
     print(r.text)
     logger.info("推送状态: %s", r.text)
 
-
 if __name__ == '__main__':
     post_weichat_2()
+
+
