@@ -26,6 +26,8 @@ jobs:
         pip install js2py
 
     - name: Run test1.py
+      env:
+          ANPUSH_TOKEN: ${{ secrets.ANPUSH_TOKEN }}
       run: python test1.py
 
     - name: Commit and push changes
