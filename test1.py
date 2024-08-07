@@ -120,35 +120,35 @@ logger.info("处理完成，失败的账号已被删除。")
 msg = msg + "\n\n" + "共删除了 {} 个账号密码对".format(deleted_count)
 # print(msg)
 
+#pluspush推送
+# def post_weichat_2():
+#     token = os.getenv('ANPUSH_TOKEN')
+#     if not token:
+#         logger.error("ANPUSH_TOKEN is not set.")
+#         return
 
-def post_weichat_2():
-    token = os.getenv('ANPUSH_TOKEN')
-    if not token:
-        logger.error("ANPUSH_TOKEN is not set.")
-        return
-
-    url = "https://api.anpush.com/push/"+token
-    # 从环境变量中获取token
+#     url = "https://api.anpush.com/push/"+token
+#     # 从环境变量中获取token
     
    
-    # post发送的字典参数
-    data_dict = {
-        'title': '签到000',
-        'content': msg,  # 确保变量在此处之前已经被定义
-        "channel": "56466"
-    }
-    headers = {
-    "Content-Type": "application/x-www-form-urlencoded"
-    }
-    r = requests.post(url, headers=headers, data=data_dict)  # 发起请求
-    print(r.text)
-    logger.info("推送状态: %s", r.text)
+#     # post发送的字典参数
+#     data_dict = {
+#         'title': '签到000',
+#         'content': msg,  # 确保变量在此处之前已经被定义
+#         "channel": "56466"
+#     }
+#     headers = {
+#     "Content-Type": "application/x-www-form-urlencoded"
+#     }
+#     r = requests.post(url, headers=headers, data=data_dict)  # 发起请求
+#     print(r.text)
+#     logger.info("推送状态: %s", r.text)
 
-if __name__ == '__main__':
-    post_weichat_2()
+# if __name__ == '__main__':
+#     post_weichat_2()
 
 
-
+#微信机器人推送
 def send_webhook(content):
     token = os.getenv('WEBHOOK')
     webhook_url = token  # 请在这里填入你的key
@@ -174,5 +174,5 @@ def send_webhook(content):
 content = "这里是你想要发送的消息内容"
 result = send_webhook(msg)
 print(result)
-
+logger.info("推送状态: %s", result)
 
