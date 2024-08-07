@@ -148,3 +148,31 @@ if __name__ == '__main__':
     post_weichat_2()
 
 
+
+def send_webhook(content):
+    token = os.getenv('WEBHOOK')
+    webhook_url = token  # 请在这里填入你的key
+    headers = {'Content-Type': 'application/json'}
+    payload = {
+        "msgtype": "text",
+        "text": {
+            "content": content
+        }
+    }
+
+    try:
+        response = requests.post(webhook_url, json=payload, headers=headers)
+        if response.json().get('errcode') == 0:
+            return response.json()  # 如果请求成功，返回响应数据
+        else:
+            raise Exception(response.json().get('errmsg', '发送失败'))
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+# 使用函数示例
+content = "这里是你想要发送的消息内容"
+result = send_webhook(msg)
+print(result)
+
+
