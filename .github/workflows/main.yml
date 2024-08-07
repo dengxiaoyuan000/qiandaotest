@@ -27,7 +27,7 @@ jobs:
 
     - name: Run test1.py
       env:
-          ANPUSH_TOKEN: ${{ secrets.ANPUSH_TOKEN }}
+          WEBHOOK: ${{ secrets.WEBHOOK }}
       run: python test1.py
 
     - name: Commit and push changes
